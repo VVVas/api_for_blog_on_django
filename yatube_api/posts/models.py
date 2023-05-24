@@ -48,8 +48,9 @@ class Post(models.Model):
     )
 
     class Meta:
-        # При наличии сортировки не проходит pytest
-        # ordering = ('-pub_date', 'id')
+        # При наличии сортировки от новых к старым не проходит pytest
+        # Поэтому поменял сортировку на от старых к новым
+        ordering = ('pub_date', 'id')
         verbose_name = 'Публикация'
         verbose_name_plural = 'Публикации'
 
