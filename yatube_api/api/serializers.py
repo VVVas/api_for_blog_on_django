@@ -7,6 +7,9 @@ from posts.models import Comment, Follow, Group, Post
 
 User = get_user_model()
 
+NOT_FOLLOW_YOURSELF = 'Вы не можете подписаться на себя'
+NOT_FOLLOW_AGAIN = 'Вы уже подписаны на этого автора'
+
 
 class GroupSerializer(serializers.ModelSerializer):
 
@@ -51,9 +54,7 @@ class FollowSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
         if self.context['request'].user == data['following']:
-            raise serializers.ValidationError(
-                'Вы не можете подписаться на себя'
-            )
+            raise serializers.ValidationError(NOT_FOLLOW_YOURSELF)
         return data
 
     class Meta:
@@ -63,6 +64,6 @@ class FollowSerializer(serializers.ModelSerializer):
             serializers.UniqueTogetherValidator(
                 queryset=Follow.objects.all(),
                 fields=('user', 'following'),
-                message='Вы уже подписаны на этого автора',
+                message=NOT_FOLLOW_AGAIN,
             ),
         )
