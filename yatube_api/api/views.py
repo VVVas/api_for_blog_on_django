@@ -24,7 +24,9 @@ class GroupViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class PostViewSet(viewsets.ModelViewSet):
-    queryset = Post.objects.all()
+    queryset = Post.objects.prefetch_related(
+        'author',
+    )
     serializer_class = PostSerializer
     permission_classes = (IsAuthenticatedOrReadOnly, IsAuthorOrReadOnly,)
     pagination_class = LimitOffsetPagination
@@ -43,7 +45,9 @@ class CommentViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         post = self._get_post_for_comment()
-        return post.comments.all()
+        return post.comments.select_related(
+            'author',
+        )
 
     def perform_create(self, serializer):
         post = self._get_post_for_comment()
