@@ -1,42 +1,32 @@
-# API для Yatube
-Чтоб было круто!
+# API для Блога  
+Позволяет пользователям регистрироваться, создавать и редактировать публикации, оставлять к ним комментарии, подписываться на других авторов.  
 
-Создать окружение
-```
-python -m venv venv
-```
+## Стек технологий  
+Python, Django, Django REST framework, djoser, Simple JWT, Pillow, SQLite  
 
-Активировать окружение
-```
-source venv/Scripts/activate
-```
+## Как развернуть API для Блога  
 
-Обновить pip
-```
-python -m pip install --upgrade pip
-```
+Создать окружение  
+```  
+python -m venv venv  
+```  
 
-Установить зависимости
-```
-pip install -r requirements.txt
-```
+Активировать окружение, обновить pip и установить зависимости  
+```  
+source venv/Scripts/activate  
+python -m pip install --upgrade pip  
+pip install -r requirements.txt  
+```  
 
-Запустить pytest
-```
-pytest
-```
+Применить миграции и запустить сервер  
+```  
+python yatube_api/manage.py migrate  
+python yatube_api/manage.py runserver  
+```  
 
-Применить миграции
-```
-python yatube_api/manage.py migrate
-```
+По окончании использования деактивировать окружение  
+```  
+deactivate  
+```  
 
-Запустить сервер
-```
-python yatube_api/manage.py runserver
-```
-
-Деактивировать окружение
-```
-deactivate
-```
+[Мишустин Василий](https://github.com/vvvas), v@vvvas.ru  
