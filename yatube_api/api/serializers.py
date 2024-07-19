@@ -52,10 +52,15 @@ class FollowSerializer(serializers.ModelSerializer):
         queryset=User.objects.all(),
     )
 
-    def validate(self, data):
-        if self.context['request'].user == data['following']:
+    def validate_following(self, value):
+        if self.context['request'].user == value:
             raise serializers.ValidationError(FOLLOW_NOT_YOURSELF)
-        return data
+        return value
+
+    # def validate(self, data):
+    #     if self.context['request'].user == data['following']:
+    #         raise serializers.ValidationError(FOLLOW_NOT_YOURSELF)
+    #     return data
 
     class Meta:
         fields = ('user', 'following',)
